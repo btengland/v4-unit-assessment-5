@@ -1,3 +1,5 @@
+const { getByTitle } = require("@testing-library/react");
+
 module.exports = {
     readPosts: async (req, res) => {
       let { id } = req.session.user;
@@ -37,8 +39,17 @@ module.exports = {
         }
       }
     },
-    createPost: (req, res) => {
-      //code here
+    createPost: async (req, res) => {
+      const db = req.app.get('db')
+      const {id} = req.session.user
+      const {title, img, content} = req.body
+      const date = new Date
+      if(id){
+        const post = await db.create_post([id, title, img, content, date])
+        res.status(200).send(post)
+      } else {
+        res.sendStatus(403)
+      }
     },
     readPost: (req, res) => {
       req.app.get('db').post.read_post(req.params.id)

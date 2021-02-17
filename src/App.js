@@ -1,9 +1,14 @@
 import React from 'react';
 import './App.css';
+import routes from "./routes.js"
+import Nav from "./Components/Nav/Nav.js"
 
 function App() {
   return (
-    <div className='App'></div>
+    <div className='App'>
+      {Nav}
+      {routes}
+    </div>
   )
 };
 
